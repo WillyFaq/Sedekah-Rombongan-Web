@@ -21,4 +21,9 @@ class Project extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function donations(): HasMany
+    {
+        return $this->hasMany(Donation::class);
+    }
 }
