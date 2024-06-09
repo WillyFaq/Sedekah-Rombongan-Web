@@ -24,7 +24,7 @@
         <i class="fas fa-fw fa-cog"></i>
         <span>Kategori</span></a>
     </x-navlink>
-    <x-navlink href="/users" :active="request()->is('users*')">
+    <x-navlink href="/user" :active="request()->is('user*')">
         <i class="fas fa-fw fa-users"></i>
         <span>Pengguna</span></a>
     </x-navlink>

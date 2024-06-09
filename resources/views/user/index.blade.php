@@ -1,10 +1,10 @@
 <x-layout>
     <x-slot:page_title>{{ $page_title }}</x-slot:page_title>
-    <x-pageheading>Kategori</x-pageheading>
+    <x-pageheading>Pengguna</x-pageheading>
 
-    <x-card title="Data Kategori">
+    <x-card title="{{ $page_title }}">
         <x-slot name="action">
-            <a href="/category/create" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top"
+            <a href="/user/create" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top"
                 title="Tambah"><i class="fas fa-plus"></i></a>
         </x-slot>
         <x-slot name="body">
@@ -13,28 +13,26 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama Kategori</th>
-                            <th>Jumlah Proyek</th>
-                            <th>Aksi</th>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th>Nomor Telepon</th>
+                            <th>Alamat</th>
+                            <th width="12%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($data as $i => $row)
                             <tr>
                                 <td>{{ $i + 1 }}</td>
+                                <td>{{ $row->nama }}</td>
+                                <td>{{ $row->email }}</td>
+                                <td>{{ $row->nomor_telepon }}</td>
+                                <td>{{ $row->alamat }}</td>
                                 <td>
-                                    @if ($row->status == 0)
-                                        <del>{{ $row->nama_kategori }}</del>
-                                    @else
-                                        {{ $row->nama_kategori }}
-                                    @endif
-                                </td>
-                                <td>{{ $row->projects->count() }}</td>
-                                <td>
-                                    <a href="/category/{{ $row->slug }}/edit" class="btn btn-sm btn-primary"
+                                    <a href="/user/{{ $row->id }}/edit" class="btn btn-sm btn-primary"
                                         data-toggle="tooltip" data-placement="top" title="Ubah"><i
                                             class="fas fa-pencil-alt"></i></a>
-                                    <form action="/category/{{ $row->slug }}" method="post" class="d-inline">
+                                    <form action="/user/{{ $row->id }}" method="post" class="d-inline">
                                         @method('delete')
                                         @csrf
                                         @if ($row->status == 0)
@@ -49,13 +47,15 @@
                                                     class="fas fa-trash"></i></button>
                                         @endif
                                     </form>
+                                    <a href="/user/{{ $row->id }}/reset" class="btn btn-sm btn-info"
+                                        data-toggle="tooltip" data-placement="top" title="Reset Password"><i
+                                            class="fas fa-user-lock"></i></a>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-
         </x-slot>
     </x-card>
 </x-layout>
