@@ -47,7 +47,8 @@ class DatabaseSeeder extends Seeder
         $data_donations = [];
         foreach ($this->data_all as $key => $value) {
             $d = $key + 3;
-            $tgla = date("Y-m-d H:i:s", strtotime($initdate . " + $d days"));
+            $initdate = explode(" ", str_replace(",", "", $value["tgl_mulai"]));
+            $tgla = date("Y-m-d H:i:s", strtotime("$initdate[1] $initdate[0] $initdate[2]"));
             $tglb = date("Y-m-d H:i:s", strtotime($tgla . " + 5 years"));
             $kat = $value["kategori"]["name"];
             if (!in_array($kat, $data_kategories)) {
@@ -69,7 +70,8 @@ class DatabaseSeeder extends Seeder
                 continue;
             }
             foreach ($value['komen'] as $k => $v) {
-                $d2 = $key + 1;
+                $d2 = $k % 30 + 1;
+                // echo "$d2 ";
                 array_push($data_comments, [
                     'user' => $v['email'],
                     'judul' => $value['judul'],

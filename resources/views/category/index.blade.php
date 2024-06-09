@@ -22,14 +22,33 @@
                         @foreach ($data as $i => $row)
                             <tr>
                                 <td>{{ $i + 1 }}</td>
-                                <td>{{ $row->nama_kategori }}</td>
+                                <td>
+                                    @if ($row->status == 0)
+                                        <del>{{ $row->nama_kategori }}</del>
+                                    @else
+                                        {{ $row->nama_kategori }}
+                                    @endif
+                                </td>
                                 <td>{{ $row->projects->count() }}</td>
                                 <td>
                                     <a href="/category/{{ $row->slug }}/edit" class="btn btn-sm btn-primary"
                                         data-toggle="tooltip" data-placement="top" title="Ubah"><i
                                             class="fas fa-pencil-alt"></i></a>
-                                    <a href="/category/create" class="btn btn-sm btn-danger" data-toggle="tooltip"
-                                        data-placement="top" title="Hapus"><i class="fas fa-trash"></i></a>
+                                    <form action="/category/{{ $row->slug }}" method="post" class="d-inline">
+                                        @method('delete')
+                                        @csrf
+                                        @if ($row->status == 0)
+                                            <button class="btn btn-sm btn-warning" data-toggle="tooltip"
+                                                data-placement="top" title="Pulihkan"
+                                                onclick="return confirm('apakah anda yakin?')"><i
+                                                    class="fas fa-recycle"></i></button>
+                                        @else
+                                            <button class="btn btn-sm btn-danger" data-toggle="tooltip"
+                                                data-placement="top" title="Hapus"
+                                                onclick="return confirm('apakah anda yakin?')"><i
+                                                    class="fas fa-trash"></i></button>
+                                        @endif
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

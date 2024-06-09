@@ -12,9 +12,11 @@
         <!-- Area Chart -->
         <div class="col-xl-12">
             <x-card title="Donasi">
-                <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
-                </div>
+                <x-slot name="body">
+                    <div class="chart-area">
+                        <canvas id="myAreaChart"></canvas>
+                    </div>
+                </x-slot>
             </x-card>
         </div>
     </div>

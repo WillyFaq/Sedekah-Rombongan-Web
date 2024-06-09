@@ -63,7 +63,7 @@ class DashboardController extends Controller
     private function genchartdonation()
     {
         $donations = Donation::selectRaw('SUM(jumlah) as jumlah, created_at')
-            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->groupBy(DB::raw('MONTH(created_at), YEAR(created_at)'))
             ->oldest()
             ->get();
         // dd($donations);

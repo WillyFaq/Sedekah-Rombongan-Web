@@ -15,7 +15,7 @@ class CategoryController extends Controller
     {
         $data = [
             "page_title" => "Kategori",
-            "data" => Category::with(["projects"])->get()
+            "data" => Category::with(["projects"])->orderBy('status', 'desc')->latest()->get()
         ];
         return view("category.index", $data);
     }
@@ -58,7 +58,11 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        $data = [
+            "page_title" => "Ubah Kategori",
+            "category" => $category
+        ];
+        return view("category.edit", $data);
     }
 
     /**
@@ -66,7 +70,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $validateData = $request->validate([
+            'nama_kategori' => 'required|max:255'
+        ]);
+        $validateData["slug"] = $this->createSlug($validateData["nama_kategori"]);
+        Category::where("id", $category->id)->update($validateData);
+        return redirect('/category')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -74,8 +83,18 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $sts = $category->status == 0 ? 1 : 0;
+        Category::where('slug', $category->slug)->update(['status' => $sts]);
+        return redirect('/category')->with('success', 'Data Berhasil Diubah');
     }
+
+    // public function recover(Category $category)
+    // {
+    //     $sts = $category->status == 0 ? 1 : 0;
+    //     dd($sts);
+    //     Category::where('slug', $category->slug)->update(['status' => $sts]);
+    //     return redirect('/category')->with('success', 'Data Berhasil Diubah');
+    // }
 
     public function createSlug($title)
     {
