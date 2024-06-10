@@ -22,10 +22,15 @@ class DashboardController extends Controller
     //
     private function gensumcard()
     {
-        $jml_user = User::count();
-        $jml_project = Project::count();
-        $donasi_terkumpul = Donation::sum('jumlah');
-        $kebutuhan_dana = Project::sum('target_dana');
+        $jml_user = User::where("status", ">", "0")->count();
+        $project = Project::with(["donations"])->where("status", ">", "0");
+        $jml_project = $project->count();
+        $donasi_terkumpul = Donation::where('status', '>', '0')->sum('jumlah');
+        // dd($project->donations);
+        // $donasi_terkumpul = $project->donations->sum('jumlah');
+        // dd($donasi_terkumpul);
+        // $donasi_terkumpul = $project->donations->sum('jumlah');
+        $kebutuhan_dana = $project->sum('target_dana');
         $project_done = DB::table('projects')
             ->select('projects.target_dana', DB::raw("SUM(donations.jumlah) as jumlah"))
             ->join('donations', 'projects.id', '=', 'donations.project_id')
@@ -64,6 +69,7 @@ class DashboardController extends Controller
     {
         $donations = Donation::selectRaw('SUM(jumlah) as jumlah, created_at')
             ->groupBy(DB::raw('MONTH(created_at), YEAR(created_at)'))
+            ->where('status', '>', '0')
             ->oldest()
             ->get();
         // dd($donations);

@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group">
                     <label for="alamat">Alamat</label>
-                    <textarea class="form-control @error('alamat') is-invalid @enderror" id="nomor_telepon" name="alamat" required
+                    <textarea class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" required
                         rows="6">{{ old('alamat') }}</textarea>
                     @error('alamat')
                         <div class="invalid-feedback">{{ $message }}</div>

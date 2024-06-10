@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
         foreach ($this->data_all as $key => $value) {
             $d = $key + 3;
             $initdate = explode(" ", str_replace(",", "", $value["tgl_mulai"]));
-            $tgla = date("Y-m-d H:i:s", strtotime("$initdate[1] $initdate[0] $initdate[2]"));
+            $tgla = date("Y-m-d H:i:s", strtotime("$initdate[1]-$initdate[0]-$initdate[2] 08:12:43"));
             $tglb = date("Y-m-d H:i:s", strtotime($tgla . " + 5 years"));
             $kat = $value["kategori"]["name"];
             if (!in_array($kat, $data_kategories)) {
@@ -72,20 +72,26 @@ class DatabaseSeeder extends Seeder
             foreach ($value['komen'] as $k => $v) {
                 $d2 = $k % 30 + 1;
                 // echo "$d2 ";
+                $created_at_raw = strtotime($tgla . " + $d2 days");
+                $now = strtotime(date("Y-m-d H:i:s"));
+                if ($created_at_raw > $now) {
+                    $created_at_raw = $now + $d2;
+                }
+                $created_at = date("Y-m-d H:i:s", $created_at_raw);
                 array_push($data_comments, [
                     'user' => $v['email'],
                     'judul' => $value['judul'],
                     'isi_komentar' => $v['isi'],
                     'anonim' => $v['anonim'],
                     'amin' => 0,
-                    'created_at' => date("Y-m-d H:i:s", strtotime($tgla . " + $d2 days"))
+                    'created_at' => $created_at
                 ]);
                 array_push($data_donations, [
                     'user' => $v['email'],
                     'judul' => $value['judul'],
                     'jumlah' => (int)$v['donation'],
                     'anonim' => $v['anonim'],
-                    'created_at' => date("Y-m-d H:i:s", strtotime($tgla . " + $d2 days"))
+                    'created_at' => $created_at
                 ]);
                 if (in_array($v["email"], $unique_email)) {
                     continue;

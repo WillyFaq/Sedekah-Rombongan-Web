@@ -29,7 +29,7 @@
                                         {{ $row->nama_kategori }}
                                     @endif
                                 </td>
-                                <td>{{ $row->projects->count() }}</td>
+                                <td>{{ $row->projects->where('status', '>', '0')->count() }}</td>
                                 <td>
                                     <a href="/category/{{ $row->slug }}/edit" class="btn btn-sm btn-primary"
                                         data-toggle="tooltip" data-placement="top" title="Ubah"><i

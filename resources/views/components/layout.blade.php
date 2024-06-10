@@ -36,6 +36,8 @@
 
     <!-- Custom styles for this page -->
     <link href="{{ asset('assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
 </head>
 
 <body id="page-top">
@@ -71,8 +73,6 @@
         </div>
     @endif
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
     {{-- <script src="assets/vendor/bootstrap/js/popper.min.js"></script> --}}
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 

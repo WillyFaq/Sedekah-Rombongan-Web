@@ -2,7 +2,7 @@
     <x-slot:page_title>{{ $page_title }}</x-slot:page_title>
     <x-pageheading>Pengguna</x-pageheading>
 
-    <x-card title="{{ $page_title }}">
+    <x-card title="Data {{ $page_title }}">
         <x-slot name="action">
             <a href="/user/create" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top"
                 title="Tambah"><i class="fas fa-plus"></i></a>
