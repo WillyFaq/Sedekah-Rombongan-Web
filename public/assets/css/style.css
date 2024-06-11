@@ -28,6 +28,18 @@ trix-editor{
   overflow-y: auto;
 }
 
+.donation-inv{
+  /*width: 40vw;
+  */width: clamp(40vw, 40vw, 80vw);
+  background: url('../imgs/bg4.png') no-repeat #FFF;
+  background-size: 100% 100%;
+  border: 1px solid #f1f5ff;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
 
 /* scroll */
 
