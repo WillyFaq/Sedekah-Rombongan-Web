@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\ProjectController;
@@ -16,3 +17,4 @@ Route::post('/project/upload', [ProjectController::class, "uploadfromeditor"]);
 Route::resource('/project', ProjectController::class);
 Route::get('/donation/{donation:id}/invoice', [DonationController::class, "invoice"]);
 Route::resource('/donation', DonationController::class);
+Route::resource('/comment', CommentController::class);
