@@ -34,6 +34,7 @@ class DashboardController extends Controller
         $project_done = DB::table('projects')
             ->select('projects.target_dana', DB::raw("SUM(donations.jumlah) as jumlah"))
             ->join('donations', 'projects.id', '=', 'donations.project_id')
+            ->where("projects.status", ">", "0")
             ->groupBy('donations.project_id')
             ->havingRaw("SUM(donations.jumlah) >= projects.target_dana")->count();
         $data_sumcard = [

@@ -52,10 +52,10 @@ class ProjectController extends Controller
         ]);
         //
         $filename = $request->file('image')->getClientOriginalName();
-        // $request->file('image')->store('public/images');
-        $request->image->move(public_path('images'), $filename);
+        // $request->file('image')->store('images');
+        // $request->image->move(public_path('images'), $filename);
         unset($validateData["image"]);
-        $validateData["gambar"] = $filename;
+        $validateData["gambar"] = $request->file('image')->store('images');
         //
         $validateData["slug"] = $this->createSlug($validateData["judul"]);
         Project::create($validateData);
@@ -106,10 +106,9 @@ class ProjectController extends Controller
         }
         $validateData = $request->validate($rules);
         if ($request->image != $project->image) {
-            $filename = $request->file('image')->getClientOriginalName();
-            // $request->file('image')->store('public/images');
-            $request->image->move(public_path('images'), $filename);
-            $validateData["gambar"] = $filename;
+            // $filename = $request->file('image')->getClientOriginalName();
+            // $request->image->move(public_path('images'), $filename);
+            $validateData["gambar"] = $request->file('image')->store('images');
             unset($validateData["image"]);
         }
         Project::where("id", $project->id)->update($validateData);
@@ -126,6 +125,27 @@ class ProjectController extends Controller
         Donation::where('project_id', $project->id)->update(['status' => $sts]);
         Comment::where('project_id', $project->id)->update(['status' => $sts]);
         return redirect('/project')->with('success', 'Data Berhasil Dihapus');
+    }
+
+    public function uploadfromeditor(Request $request)
+    {
+        // //get filename with extension
+        // $filenamewithextension = $request->file('file')->getClientOriginalName();
+        // //get filename without extension
+        // $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+        // //get file extension
+        // $extension = $request->file('file')->getClientOriginalExtension();
+        // //filename to store
+        // $filenametostore = $filename . '_' . time() . '.' . $extension;
+        // //Upload File
+        // $request->file('file')->storeAs('public/uploads', $filenametostore);
+        // // you can save image path below in database
+        // $path = asset('storage/uploads/' . $filenametostore);
+
+        $path = $request->file('file')->store('images');
+        $path = asset("storage/$path");
+        echo $path;
+        exit;
     }
 
     public function createSlug($title)

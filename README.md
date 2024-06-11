@@ -49,6 +49,12 @@ php artisan migrate
 php artisan db:seed
 ```
 
+-   link storage
+
+```
+php artisan storage:link
+```
+
 -   Run server
 
 ```

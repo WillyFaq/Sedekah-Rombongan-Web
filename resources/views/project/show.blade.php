@@ -20,7 +20,7 @@
                 @php
                     $gambar = $project->gambar;
                     if (Str::substr($gambar, 0, 5) != 'https') {
-                        $gambar = asset("/images/$gambar");
+                        $gambar = asset("storage/$gambar");
                     }
                 @endphp
                 <img class="imgres" src="{{ $gambar }}" alt="gambar-{{ $project->slug }}">

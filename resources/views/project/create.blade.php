@@ -1,6 +1,7 @@
 <x-layout>
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/attachments.js') }}"></script>
     <x-slot:page_title>{{ $page_title }}</x-slot:page_title>
     <x-pageheading>Proyek Donasi</x-pageheading>
     <x-card title="{{ $page_title }}">

@@ -18,6 +18,7 @@
     <meta property="og:image:height" content="350" />
     <meta property="og:image:type" content="image/jpeg" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/imgs/icon-32.png') }}">
     <title>
         @isset($page_title)
