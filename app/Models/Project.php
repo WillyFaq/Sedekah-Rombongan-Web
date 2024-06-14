@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Project extends Model
 {
@@ -40,5 +42,18 @@ class Project extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    /**
+     * gambar
+     *
+     * @return Attribute
+     */
+    protected function gambar(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($gambar) =>  Str::substr($gambar, 0, 5) != 'https' ? url('/storage/' . $gambar) : $gambar,
+            // get: fn ($gambar) =>  url('/storage/' . $gambar),
+        );
     }
 }
