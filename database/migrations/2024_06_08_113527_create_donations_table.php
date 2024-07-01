@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('donations', function (Blueprint $table) {
             $table->id();
+            $table->string('no_invoice')->unique();
             $table->foreignId('project_id')->constrained(
                 table: 'projects',
                 indexName: 'donation_project_id'

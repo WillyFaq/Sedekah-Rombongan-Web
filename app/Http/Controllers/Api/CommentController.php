@@ -12,6 +12,8 @@ use App\Http\Resources\MainResource;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CommentAddRequest;
 use App\Http\Requests\CommentUpdateRequest;
+use App\Http\Resources\CommentCollection;
+use App\Http\Resources\CommentResource;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Throwable;
 
@@ -25,24 +27,31 @@ class CommentController extends Controller
         // showing comment by user
         $user = Auth::user();
         $data = Comment::with(['project'])->where("user_id", $user->id)->where("status", ">", "0")->latest()->simplePaginate(5);
-        return new MainResource(true, 'List Data Comment', $data);
+        return new CommentResource($data);
     }
+
     public function byproject(Project $project)
     {
-        //$data = Comment::with(['user'])->where("project_id", $project->id)->where("status", ">", "0")->latest()->paginate(5);
-        $data = Comment::select(
-            'comments.isi_komentar',
-            'comments.anonim',
-            'comments.amin',
-            'comments.created_at',
-            DB::raw("IF (comments.anonim, 'Sedekaholic', users.nama) AS user")
-        )
-            ->join('users', 'comments.user_id', '=', 'users.id')
-            ->where('comments.status', '>', '0')
+        $data = Comment::with(['user'])
             ->where("project_id", $project->id)
+            ->where("status", ">", "0")
             ->latest()
-            ->simplePaginate(5);
-        return new MainResource(true, 'List Data Comment', $data);
+            // ->simplePaginate(5);
+            ->paginate(5);
+        // $data = Comment::select(
+        //     'comments.isi_komentar',
+        //     'comments.anonim',
+        //     'comments.created_at',
+        //     DB::raw("IF (comments.anonim, 'Sedekaholic', users.nama) AS user")
+        // )
+        //     ->join('users', 'comments.user_id', '=', 'users.id')
+        //     ->where('comments.status', '>', '0')
+        //     ->where("project_id", $project->id)
+        //     ->latest()
+        //     ->simplePaginate(5);
+        // return new MainResource(true, 'List Data Comment', $data);
+
+        return new CommentCollection($data);
     }
 
     /**
@@ -73,7 +82,7 @@ class CommentController extends Controller
                 ]
             ], 400));
         }
-        return (new MainResource(true, 'Success', $comment))->response()->setStatusCode(201);
+        return (new CommentResource($comment))->response()->setStatusCode(201);
     }
 
     /**
@@ -81,7 +90,7 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        //
+        // 
     }
 
     /**
@@ -114,7 +123,14 @@ class CommentController extends Controller
             $comment->anonim = $data["anonim"];
         }
         $comment->save();
-        return new MainResource(true, 'Data Comment', $comment);
+        return new CommentResource($comment);
+    }
+
+    public function aminkan(Comment $comment)
+    {
+        $comment->increment("amin");
+        $comment->save();
+        return new CommentResource($comment);
     }
 
     /**

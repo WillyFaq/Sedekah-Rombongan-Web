@@ -25,11 +25,7 @@
             <h3>{{ $donation->project->judul }}</h3>
         </div>
         <div class="py-4 text-center" style="background:#f1f5ff;">
-            @php
-                $inv = date('ymdHis', strtotime($donation->created_at));
-                $inv .= strtoupper(str_pad(dechex($donation->id), 6, '0', STR_PAD_LEFT));
-            @endphp
-            <p class="m-0">INV-{{ $inv }} /
+            <p class="m-0">{{ $donation->no_invoice }} /
                 {{ date('d M Y - H:i', strtotime($donation->created_at)) }}</p>
         </div>
         <div class="p-4 px-5 mx-2">

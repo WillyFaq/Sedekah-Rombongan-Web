@@ -15,11 +15,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/category', [CategoryController::class, "index"]);
 Route::get('/category/{category:id}', [CategoryController::class, "show"]);
+Route::get('/project/carousel', [CategoryController::class, "carousel"]);
 // Route::apiResource('/category', CategoryController::class);
 Route::get('/project', [ProjectController::class, "index"]);
 Route::get('/project/{project:slug}', [ProjectController::class, "show"]);
 // Route::apiResource('/project', ProjectController::class);
 Route::get('/comments/project/{project:slug}', [CommentController::class, "byproject"]);
+Route::post('/comments/aminkan/{comment:id}', [CommentController::class, "aminkan"]);
 Route::get('/donations/project/{project:slug}', [DonationController::class, "byproject"]);
 
 Route::post('/user', [UserController::class, 'register']);

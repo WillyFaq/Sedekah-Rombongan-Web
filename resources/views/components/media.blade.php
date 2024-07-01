@@ -13,7 +13,7 @@
         @if ($amin >= 0)
             <div class="d-flex align-items-center">
                 <img src="{{ asset('assets/imgs/praying-color3.png') }}" alt="Amin" style="width: 21px;">
-                <p class="ml-2 mb-0">0 Amin</p>
+                <p class="ml-2 mb-0">{{ $amin }} Amin</p>
             </div>
         @endif
     </div>

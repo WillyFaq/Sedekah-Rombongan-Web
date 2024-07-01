@@ -52,7 +52,8 @@ class UserController extends Controller
                 ]
             ], 401));
         }
-        $user->remember_token = Str::random(10);
+        // $user->remember_token = Str::random(10);
+        $user->remember_token = Hash::make($user['email']);
         $user->save();
         return new UserResource($user);
         // return (new UserResource($user))->response()->setStatusCode(201);

@@ -2,15 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
-use App\Models\Comment;
-use App\Models\Donation;
-use App\Models\Project;
-use File;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
+use App\Models\Comment;
+use App\Models\Project;
+use App\Models\Category;
+// use File;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Donation;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -86,8 +87,11 @@ class DatabaseSeeder extends Seeder
                     'amin' => 0,
                     'created_at' => $created_at
                 ]);
+                $inv = date('ymd', strtotime($created_at));
+                $strr = strtoupper(Str::random(5));
                 array_push($data_donations, [
                     'user' => $v['email'],
+                    'no_invoice' => 'INV-' . $inv . $strr,
                     'judul' => $value['judul'],
                     'jumlah' => (int)$v['donation'],
                     'anonim' => $v['anonim'],
@@ -100,11 +104,11 @@ class DatabaseSeeder extends Seeder
                 array_push($data_users, [
                     'nama' => $v['username'],
                     'email' => $v['email'],
-                    'email_verified_at' => now()->toDateTimeString(),
+                    // 'email_verified_at' => now()->toDateTimeString(),
                     'password' => $this->password,
                     'nomor_telepon' => $v['telp'],
                     'alamat' => $v['alamat'],
-                    'remember_token' => Str::random(10),
+                    'remember_token' => null,
                 ]);
             }
         }
@@ -149,6 +153,7 @@ class DatabaseSeeder extends Seeder
             $projid = Project::where("slug", Str::slug($v['judul']))->first();
             Donation::create([
                 'project_id' => $projid['id'],
+                'no_invoice' => $v['no_invoice'],
                 'user_id' => $userid['id'],
                 'jumlah' => $v['jumlah'],
                 'anonim' => $v['anonim'],

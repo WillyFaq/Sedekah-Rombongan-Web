@@ -13,8 +13,9 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Invoice</th>
                             <th width="20%">Proyek Donasi</th>
-                            <th>Donatur</th>
+                            <th width="20%">Donatur</th>
                             <th>Jumlah</th>
                             <th>Tanggal Donasi</th>
                             <th>Aksi</th>
@@ -24,6 +25,9 @@
                         @foreach ($data as $i => $row)
                             <tr>
                                 <td>{{ $i + 1 }}</td>
+                                <td>
+                                    {{ $row->no_invoice }}
+                                </td>
                                 <td>
                                     {{ $row->project->judul }}
                                 </td>
