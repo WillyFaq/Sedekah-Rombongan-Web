@@ -27,7 +27,7 @@ class DonationController extends Controller
         // $data = Donation::with(['project'])->where("user_id", 1)->where("status", ">", "0")->latest()->simplePaginate(5);
         // return new MainResource(true, 'List Data Donation', $data);
         $user = Auth::user();
-        $data = Donation::where("user_id", $user->id)->where("status", ">", "0")->latest()->simplePaginate(5);
+        $data = Donation::where("user_id", $user->id)->where("status", ">", "0")->latest()->paginate(5);
         return new DonationCollection($data);
     }
     public function byproject(Project $project)

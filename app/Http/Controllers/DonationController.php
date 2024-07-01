@@ -57,7 +57,7 @@ class DonationController extends Controller
             "donation" => $donation
         ];
         $pdf = Pdf::loadView('donation.invoice', $data);
-        return $pdf->stream();
+        return $pdf->stream('SedekahRombongan-'.$donation->no_invoice);
         // return $pdf->download('invoice.pdf');
         // return view("donation.invoice", $data);
     }

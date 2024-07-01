@@ -69,6 +69,11 @@ class CommentController extends Controller
     {
         $user = Auth::user();
         $data = $request->validated();
+        if(!isset($data['project_id'])){
+            $data['project_id'] = Project::where("slug", $data['slug'])->first()->id;
+            unset($data['slug']);
+        }
+        // dd($data);
         $comment = new Comment($data);
         $comment->user_id = $user->id;
         try {

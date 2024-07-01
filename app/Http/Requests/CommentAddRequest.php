@@ -24,7 +24,9 @@ class CommentAddRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'project_id' => ['required'],
+            // 'project_id' => ['required'],
+            'project_id' => ['required_if_declined:slug'],
+            'slug' => ['required_if_declined:project_id'],
             'isi_komentar' => ['required', 'max:255'],
             'anonim' => ['required'],
         ];
