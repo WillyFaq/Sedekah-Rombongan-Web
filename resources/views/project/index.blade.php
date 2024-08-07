@@ -50,13 +50,6 @@
                                     <a href="/project/{{ $row->slug }}/edit" class="btn btn-sm btn-primary"
                                         data-toggle="tooltip" data-placement="top" title="Ubah"><i
                                             class="fas fa-pencil-alt"></i></a>
-                                    <form action="/project/{{ $row->slug }}" method="post" class="d-inline">
-                                        @method('delete')
-                                        @csrf
-                                        <button class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top"
-                                            title="Hapus" onclick="return confirm('apakah anda yakin?')"><i
-                                                class="fas fa-trash"></i></button>
-                                    </form>
                                 </td>
                             </tr>
                         @endforeach

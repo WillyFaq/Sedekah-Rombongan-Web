@@ -34,21 +34,6 @@
                                     <a href="/category/{{ $row->slug }}/edit" class="btn btn-sm btn-primary"
                                         data-toggle="tooltip" data-placement="top" title="Ubah"><i
                                             class="fas fa-pencil-alt"></i></a>
-                                    <form action="/category/{{ $row->slug }}" method="post" class="d-inline">
-                                        @method('delete')
-                                        @csrf
-                                        @if ($row->status == 0)
-                                            <button class="btn btn-sm btn-warning" data-toggle="tooltip"
-                                                data-placement="top" title="Pulihkan"
-                                                onclick="return confirm('apakah anda yakin?')"><i
-                                                    class="fas fa-recycle"></i></button>
-                                        @else
-                                            <button class="btn btn-sm btn-danger" data-toggle="tooltip"
-                                                data-placement="top" title="Hapus"
-                                                onclick="return confirm('apakah anda yakin?')"><i
-                                                    class="fas fa-trash"></i></button>
-                                        @endif
-                                    </form>
                                 </td>
                             </tr>
                         @endforeach

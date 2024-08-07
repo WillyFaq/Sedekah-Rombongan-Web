@@ -55,8 +55,9 @@ php artisan db:seed
 php artisan storage:link
 ```
 
--   Run server
+## Run server
 
 ```
 php artisan serve --host 0.0.0.0
 ```
+

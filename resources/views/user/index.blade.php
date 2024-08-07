@@ -32,21 +32,6 @@
                                     <a href="/user/{{ $row->id }}/edit" class="btn btn-sm btn-primary"
                                         data-toggle="tooltip" data-placement="top" title="Ubah"><i
                                             class="fas fa-pencil-alt"></i></a>
-                                    <form action="/user/{{ $row->id }}" method="post" class="d-inline">
-                                        @method('delete')
-                                        @csrf
-                                        @if ($row->status == 0)
-                                            <button class="btn btn-sm btn-warning" data-toggle="tooltip"
-                                                data-placement="top" title="Pulihkan"
-                                                onclick="return confirm('apakah anda yakin?')"><i
-                                                    class="fas fa-recycle"></i></button>
-                                        @else
-                                            <button class="btn btn-sm btn-danger" data-toggle="tooltip"
-                                                data-placement="top" title="Hapus"
-                                                onclick="return confirm('apakah anda yakin?')"><i
-                                                    class="fas fa-trash"></i></button>
-                                        @endif
-                                    </form>
                                     <a href="/user/{{ $row->id }}/reset" class="btn btn-sm btn-info"
                                         data-toggle="tooltip" data-placement="top" title="Reset Password"><i
                                             class="fas fa-user-lock"></i></a>

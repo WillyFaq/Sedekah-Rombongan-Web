@@ -5,6 +5,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,3 +19,5 @@ Route::resource('/project', ProjectController::class);
 Route::get('/donation/{donation:id}/invoice', [DonationController::class, "invoice"]);
 Route::resource('/donation', DonationController::class);
 Route::resource('/comment', CommentController::class);
+Route::get('/report', [ReportController::class, "index"]);
+Route::get('/report/pdf', [ReportController::class, "pdf"]);
