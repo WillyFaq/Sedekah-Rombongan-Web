@@ -18,7 +18,10 @@ class ProjectController extends Controller
     {
         $data = [
             "page_title" => "Proyek Donasi",
-            "data" => Project::with(["category", "donations", "comments"])->orderBy('tgl_mulai', 'desc')->where("status", ">", "0")->get()
+            "data" => Project::with(["category", "donations", "comments"])
+                ->orderBy('tgl_mulai', 'desc')
+                ->where("status", ">", "0")
+                ->get()
         ];
         return view("project.index", $data);
     }
@@ -95,7 +98,7 @@ class ProjectController extends Controller
         $rules = [
             'judul' => 'required|max:255',
             'category_id' => 'required',
-            'target_dana' => 'required|numeric',
+            'target_dana' => 'required|numeric|max:1e12',
             'lokasi' => 'required|max:255',
             'tgl_mulai' => 'required|date',
             'tgl_selesai' => 'required|date|after:tgl_mulai',

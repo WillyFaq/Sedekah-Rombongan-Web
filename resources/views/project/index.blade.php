@@ -22,6 +22,15 @@
                     </thead>
                     <tbody>
                         @foreach ($data as $i => $row)
+                            @php
+                                $jmlh = $row->donations->sum('jumlah');
+                                $tot = $row->target_dana;
+                            @endphp
+                            @if ($jmlh > $tot)
+                                @php
+                                    continue;
+                                @endphp
+                            @endif
                             <tr>
                                 <td>{{ $i + 1 }}</td>
                                 <td>
@@ -30,10 +39,6 @@
                                 </td>
                                 <td>{{ $row->category->nama_kategori }}</td>
                                 <td>
-                                    @php
-                                        $jmlh = $row->donations->sum('jumlah');
-                                        $tot = $row->target_dana;
-                                    @endphp
                                     Rp. {{ number_format($jmlh) }}
                                     /
                                     Rp. {{ number_format($tot) }}
