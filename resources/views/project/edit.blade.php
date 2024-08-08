@@ -45,7 +45,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="target_dana-addon">Rp.</span>
                                 </div>
-                                <input type="text" class="form-control @error('target_dana') is-invalid @enderror"
+                                <input type="number" min="0" max="1e12" class="form-control @error('target_dana') is-invalid @enderror"
                                     id="target_dana" name="target_dana" required
                                     value="{{ old('target_dana', $project->target_dana) }}" aria-label="target_dana"
                                     aria-describedby="target_dana-addon">
